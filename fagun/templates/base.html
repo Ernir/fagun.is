@@ -11,17 +11,26 @@
 
     <link rel="stylesheet" href="{% static "style.css" %}"/>
 
-    <link rel="shortcut icon" type="image/png" sizes="16x16 24x24 32x32 48x48" href="{% static "favicon-fagun.ico" %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static "images/logo64x64.png" %}"/>
 
-    <title>Fágun - Félag áhugamanna um gerjun</title>
+    <title>Fágun - Félag áhugafólks um gerjun</title>
 </head>
 <body>
 
 <div id="content" class="container">
+    {% include "navbar.html" %}
     {% block content %}
         This should be overridden.
     {% endblock %}
 </div>
+
+{% block footer %}
+<div id="footer">
+    <div class="container text-muted">
+        <p class="small">Fágun, félag áhugafólks um gerjun 2016</p>
+    </div>
+</div>
+{% endblock %}
 
 <!-- minified jQuery -->
 <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
