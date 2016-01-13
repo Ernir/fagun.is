@@ -14,11 +14,14 @@ class SidebarEntry(models.Model):
         ordering = ("priority", )
 
 
-class Article(models.Model):
+class NewsArticle(models.Model):
     title = models.CharField(max_length=200)
     published_at = models.DateField()
     slug = models.SlugField()
-    main_text = models.TextField()
+    body = models.TextField()
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ("published_at", )

@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.db import models
 from django import forms
 from adminsortable2.admin import SortableAdminMixin
-from fagun.models import Article, SidebarEntry
+from fagun.models import NewsArticle, SidebarEntry
 
 
-class SidebarAdmin(SortableAdminMixin, admin.ModelAdmin):
+class SidebarEntryAdmin(SortableAdminMixin, admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {
             'widget': forms.Textarea(attrs={'class': 'ckeditor'})
@@ -17,5 +17,17 @@ class SidebarAdmin(SortableAdminMixin, admin.ModelAdmin):
         js = ('//cdn.ckeditor.com/4.4.7/standard/ckeditor.js',)
 
 
-admin.site.register(Article)
-admin.site.register(SidebarEntry, SidebarAdmin)
+class NewsArticleAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {
+            'widget': forms.Textarea(attrs={'class': 'ckeditor'})
+        },
+    }
+
+    class Media:
+        css = {"all": ("admin_style.css",)}
+        js = ('//cdn.ckeditor.com/4.4.7/standard/ckeditor.js',)
+
+
+admin.site.register(NewsArticle, NewsArticleAdmin)
+admin.site.register(SidebarEntry, SidebarEntryAdmin)

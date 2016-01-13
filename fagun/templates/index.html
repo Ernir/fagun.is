@@ -4,6 +4,10 @@
     <div class="row">
         <div class="col-sm-7">
             <h2>Nýjustu fréttir</h2>
+            {% for article in news_articles %}
+                <h4>{{ article.title }}</h4>
+                <p>{{ article.body|safe }}</p>
+            {% endfor %}
             <h2>Nýjustu uppskriftir</h2>
         </div>
 
