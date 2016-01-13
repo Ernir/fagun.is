@@ -2,20 +2,16 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-8 blog-main">
-            Þetta er aðaltextinn á síðunni
+        <div class="col-sm-7">
+            <h2>Nýjustu fréttir</h2>
+            <h2>Nýjustu uppskriftir</h2>
         </div>
 
-        <div class="col-sm-3 col-sm-offset-1">
-            <h4>Um fágun</h4>
-
-            <p>Fágun er félag áhugafólks um gerjun.</p>
-
-            <h4>Ganga í félagið</h4>
-
-            <p>Svona er hægt að ganga í félagið.</p>
+        <div class="col-sm-4 col-sm-offset-1">
+            {% for entry in sidebar_entries %}
+                <h4>{{ entry.title }}</h4>
+                <p>{{ entry.body|safe }}</p>
+            {% endfor %}
         </div>
-    </div>
-    <!-- /.blog-sidebar -->
     </div>
 {% endblock %}

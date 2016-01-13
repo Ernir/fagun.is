@@ -17,6 +17,7 @@ DEBUG = bool(os.environ.get("DEBUG_MODE"))
 # Application definition
 
 INSTALLED_APPS = (
+    'adminsortable2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
