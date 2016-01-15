@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ title }}</h3>
+
+            <div>
+                <ul>
+                    {% for news_article in article_list %}
+                        <li>
+                            <a href="{% url "news_article" news_article.slug %}">{{ news_article.title }}</a>
+                            {% if news_article.published_at %} -
+                                {{ news_article.published_at }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

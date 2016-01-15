@@ -3,10 +3,17 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <h3>{{ page.title }}</h3>
+            <h3>
+                {{ page.title }}
+            </h3>
+            <h4>
+                {% if page.published_at %}
+                    {{ page.published_at }}
+                {% endif %}
+            </h4>
 
             <div>
-                {{ page.body }}
+                {{ page.body|safe }}
             </div>
         </div>
     </div>

@@ -4,6 +4,8 @@ from django.conf.urls import url
 from fagun import views
 
 urlpatterns = [
-    url(r"^$", views.index, name="index"),
-    url(r"^undirsida/(?P<page_slug>.+)$", views.sub_page, name="sub_page")
+    url(r"^$", views.IndexView.as_view(), name="index"),
+    url(r"^frettir/$", views.ArticleView.as_view(), name="news_list"),
+    url(r"^frettir/(?P<article_slug>.+)/$", views.ArticleView.as_view(), name="news_article"),
+    url(r"^(?P<page_slug>.+)/$", views.SubPageView.as_view(), name="sub_page")
 ]
