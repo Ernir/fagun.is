@@ -31,7 +31,7 @@ class NewsArticle(PublishableEntity):
         super(NewsArticle, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ("published_at", )
+        ordering = ("-published_at", )
 
 
 class Recipe(PublishableEntity):

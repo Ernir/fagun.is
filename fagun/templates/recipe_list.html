@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ title }}</h3>
+
+            <div>
+                <ul>
+                    {% for recipe in recipe_list %}
+                        <li>
+                            <a href="{% url "recipe" recipe.slug %}">{{ recipe.title }}</a>
+                            {% if recipe.published_at %} -
+                                {{ recipe.published_at }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

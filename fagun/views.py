@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, View
+from django.views.generic import View
 from fagun.models import SidebarEntry, NewsArticle, Recipe, SubPage
 
 
@@ -23,14 +23,6 @@ class IndexView(BaseView):
         return render(request, "index.html", self.params)
 
 
-class SubPageView(BaseView):
-    def get(self, request, **kwargs):
-        page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
-        self.params["page"] = page
-
-        return render(request, "sub_page.html", self.params)
-
-
 class ArticleView(BaseView):
     def get(self, request, **kwargs):
         if not "article_slug" in kwargs:
@@ -45,5 +37,31 @@ class ArticleView(BaseView):
     def article_detail(self, request, slug):
         article = get_object_or_404(NewsArticle, slug=slug)
         self.params["page"] = article
+
+        return render(request, "sub_page.html", self.params)
+
+
+class RecipeView(BaseView):
+    def get(self, request, **kwargs):
+        if not "recipe_slug" in kwargs:
+            return self.recipe_list(request)
+        return self.recipe_detail(request, kwargs["recipe_slug"])
+
+    def recipe_list(self, request):
+        recipes = Recipe.objects.filter(visible=True).all()
+        self.params["recipe_list"] = recipes
+        return render(request, "recipe_list.html", self.params)
+
+    def recipe_detail(self, request, slug):
+        article = get_object_or_404(Recipe, slug=slug)
+        self.params["page"] = article
+
+        return render(request, "sub_page.html", self.params)
+
+
+class SubPageView(BaseView):
+    def get(self, request, **kwargs):
+        page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
+        self.params["page"] = page
 
         return render(request, "sub_page.html", self.params)

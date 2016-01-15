@@ -30,6 +30,9 @@
                 <li>
                     <a href="{% url "news_list" %}">Fréttir</a>
                 </li>
+                <li>
+                    <a href="{% url "recipe_list" %}">Uppskriftir</a>
+                </li>
                 {% for page in sub_pages %}
                     <li>
                         <a href="{% url "sub_page" page.slug %}">{{ page.title }}</a>
