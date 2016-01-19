@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-from fagun.models import SidebarEntry, NewsArticle, Recipe, SubPage, Tag
+from fagun.models import SidebarEntry, NewsStory, EducationalArticle, SubPage, Tag
 
 
 class BaseView(View):
@@ -13,47 +13,47 @@ class BaseView(View):
 class IndexView(BaseView):
     def get(self, request):
         sidebar_entries = SidebarEntry.objects.filter(visible=True).all()
-        news_articles = NewsArticle.objects.filter(visible=True).all()[:2]
-        recipes = Recipe.objects.filter(visible=True).all()[:2]
+        news_stories = NewsStory.objects.filter(visible=True).all()[:2]
+        articles = EducationalArticle.objects.filter(visible=True).all()[:2]
 
         self.params["sidebar_entries"] = sidebar_entries
-        self.params["news_articles"] = news_articles
-        self.params["recipes"] = recipes
+        self.params["news_stories"] = news_stories
+        self.params["edu_articles"] = articles
 
         return render(request, "index.html", self.params)
 
 
-class ArticleView(BaseView):
+class NewsStoryView(BaseView):
     def get(self, request, **kwargs):
-        if not "article_slug" in kwargs:
-            return self.article_list(request)
-        return self.article_detail(request, kwargs["article_slug"])
+        if not "news_slug" in kwargs:
+            return self.news_list(request)
+        return self.news_detail(request, kwargs["news_slug"])
 
-    def article_list(self, request):
-        news_articles = NewsArticle.objects.filter(visible=True).all()
-        self.params["article_list"] = news_articles
-        return render(request, "news_article_list.html", self.params)
+    def news_list(self, request):
+        news_stories = NewsStory.objects.filter(visible=True).all()
+        self.params["news_stories"] = news_stories
+        return render(request, "news_story_list.html", self.params)
 
-    def article_detail(self, request, slug):
-        article = get_object_or_404(NewsArticle, slug=slug)
+    def news_detail(self, request, slug):
+        article = get_object_or_404(NewsStory, slug=slug)
         self.params["page"] = article
 
         return render(request, "sub_page.html", self.params)
 
 
-class RecipeView(BaseView):
+class EducationalArticleView(BaseView):
     def get(self, request, **kwargs):
-        if not "recipe_slug" in kwargs:
-            return self.recipe_list(request)
-        return self.recipe_detail(request, kwargs["recipe_slug"])
+        if not "article_slug" in kwargs:
+            return self.educational_article_list(request)
+        return self.educational_article_detail(request, kwargs["recipe_slug"])
 
-    def recipe_list(self, request):
-        recipes = Recipe.objects.filter(visible=True).all()
-        self.params["recipe_list"] = recipes
-        return render(request, "recipe_list.html", self.params)
+    def educational_article_list(self, request):
+        articles = EducationalArticle.objects.filter(visible=True).all()
+        self.params["edu_articles"] = articles
+        return render(request, "edu_article_list.html", self.params)
 
-    def recipe_detail(self, request, slug):
-        article = get_object_or_404(Recipe, slug=slug)
+    def educational_article_detail(self, request, slug):
+        article = get_object_or_404(EducationalArticle, slug=slug)
         self.params["page"] = article
 
         return render(request, "sub_page.html", self.params)
@@ -71,8 +71,8 @@ class TagView(BaseView):
     def get(self, request, **kwargs):
         tag = get_object_or_404(Tag, slug=self.kwargs["tag_slug"])
 
-        stories = NewsArticle.objects.filter(tags__slug=tag.slug).all()
-        articles = Recipe.objects.filter(tags__slug=tag.slug).all()
+        stories = NewsStory.objects.filter(tags__slug=tag.slug).all()
+        articles = EducationalArticle.objects.filter(tags__slug=tag.slug).all()
 
         return render(request, "tag_list.html", {
             "tag": tag,

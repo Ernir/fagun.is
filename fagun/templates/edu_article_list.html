@@ -7,11 +7,11 @@
 
             <div>
                 <ul>
-                    {% for news_article in article_list %}
+                    {% for article in edu_articles %}
                         <li>
-                            <a href="{% url "news_article" news_article.slug %}">{{ news_article.title }}</a>
-                            {% if news_article.published_at %} -
-                                {{ news_article.published_at }}
+                            <a href="{% url "article" article.slug %}">{{ article.title }}</a>
+                            {% if article.published_at %} -
+                                {{ article.published_at }}
                             {% endif %}
                         </li>
                     {% endfor %}

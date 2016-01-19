@@ -37,30 +37,30 @@ class Tag(models.Model):
         ordering = ("name", )
 
 
-class NewsArticle(PublishableEntity):
+class NewsStory(PublishableEntity):
     published_at = models.DateField()
     slug = models.SlugField()
     tags = models.ManyToManyField(Tag)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(NewsArticle, self).save(*args, **kwargs)
+        super(NewsStory, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ("-published_at", )
 
 
-class Recipe(PublishableEntity):
+class EducationalArticle(PublishableEntity):
     published_at = models.DateField()
     slug = models.SlugField()
     tags = models.ManyToManyField(Tag)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Recipe, self).save(*args, **kwargs)
+        super(EducationalArticle, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ("published_at", )
+        ordering = ("-published_at", )
 
 
 class SubPage(PublishableEntity):

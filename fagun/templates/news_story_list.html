@@ -7,11 +7,11 @@
 
             <div>
                 <ul>
-                    {% for recipe in recipe_list %}
+                    {% for story in news_stories %}
                         <li>
-                            <a href="{% url "recipe" recipe.slug %}">{{ recipe.title }}</a>
-                            {% if recipe.published_at %} -
-                                {{ recipe.published_at }}
+                            <a href="{% url "news_story" story.slug %}">{{ story.title }}</a>
+                            {% if story.published_at %} -
+                                {{ story.published_at }}
                             {% endif %}
                         </li>
                     {% endfor %}
