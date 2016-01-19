@@ -1,0 +1,7 @@
+<div>
+    <b>Flokkar:</b>
+    {% for tag in page.tags.all %}
+        <a href="{% url "tag" tag.slug %}">{{ tag.name }}</a>
+        {% if not forloop.last %},{% endif %}
+    {% endfor %}
+</div>

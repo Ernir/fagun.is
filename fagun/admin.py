@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django import forms
 from adminsortable2.admin import SortableAdminMixin
-from fagun.models import NewsArticle, SidebarEntry, Recipe, SubPage
+from fagun.models import NewsArticle, SidebarEntry, Recipe, SubPage, Tag
 
 
 class CkEditorAdmin(admin.ModelAdmin):
@@ -32,7 +32,12 @@ class RecipeAdmin(CkEditorAdmin):
 class SubPageAdmin(CkEditorAdmin):
     exclude = ("slug", )
 
+
+class TagAdmin(admin.ModelAdmin):
+    exclude = ("slug", )
+
 admin.site.register(NewsArticle, NewsArticleAdmin)
 admin.site.register(SidebarEntry, SidebarEntryAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(SubPage, SubPageAdmin)
+admin.site.register(Tag, TagAdmin)

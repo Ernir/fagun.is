@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        {% if news_stories %}
+            <div class="col-sm-6">
+                <h3>Fréttir merktar "{{ tag.name }}"</h3>
+
+                <ul>
+                    {% for story in news_stories %}
+                        <li>
+                            <a href="{% url "news_article" story.slug %}">{{ story.title }}</a>
+                            {% if story.published_at %} -
+                                {{ story.published_at }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if edu_articles %}
+            <div class="col-sm-6">
+                <h3>Greinar merktar "{{ tag.name }}"</h3>
+                <ul>
+                    {% for article in edu_articles %}
+                        <li>
+                            <a href="{% url "recipe" article.slug %}">{{ article.title }}</a>
+                            {% if article.published_at %} -
+                                {{ article.published_at }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

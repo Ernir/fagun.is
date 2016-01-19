@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-from fagun.models import SidebarEntry, NewsArticle, Recipe, SubPage
+from fagun.models import SidebarEntry, NewsArticle, Recipe, SubPage, Tag
 
 
 class BaseView(View):
@@ -65,3 +65,17 @@ class SubPageView(BaseView):
         self.params["page"] = page
 
         return render(request, "sub_page.html", self.params)
+
+
+class TagView(BaseView):
+    def get(self, request, **kwargs):
+        tag = get_object_or_404(Tag, slug=self.kwargs["tag_slug"])
+
+        stories = NewsArticle.objects.filter(tags__slug=tag.slug).all()
+        articles = Recipe.objects.filter(tags__slug=tag.slug).all()
+
+        return render(request, "tag_list.html", {
+            "tag": tag,
+            "news_stories": stories,
+            "edu_articles": articles
+        })
