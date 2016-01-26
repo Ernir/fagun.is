@@ -1,22 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>{{ title }}</h3>
-
-            <div>
-                <ul>
-                    {% for story in news_stories %}
-                        <li>
-                            <a href="{% url "news_story" story.slug %}">{{ story.title }}</a>
-                            {% if story.published_at %} -
-                                {{ story.published_at }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <h2>Fréttir</h2>
+    {% for story in news_stories %}
+        <div class="list-group">
+            <a href="{% url "news_story" story.slug %}" class="list-group-item">
+            <p class="small">{% if story.published_at %}
+                {{ story.published_at }}
+            {% endif %}</p>
+                <h4 class="list-group-item-heading">{{ story.title }}</h4>
+            <p class="list-group-item-text">Hér kemur texti úr fréttinni</p>
+            </a>
         </div>
-    </div>
+    {% endfor %}
 {% endblock %}

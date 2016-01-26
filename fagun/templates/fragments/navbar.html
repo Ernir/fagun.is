@@ -1,6 +1,7 @@
 {% load static %}
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fagun">
+<div class="container">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -24,10 +25,6 @@
              id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{% url "index" %}"
-                       title="fagun.is">Forsíða</a>
-                </li>
-                <li>
                     <a href="{% url "news_list" %}">Fréttir</a>
                 </li>
                 <li>
@@ -47,4 +44,5 @@
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
+</div>
 </nav>

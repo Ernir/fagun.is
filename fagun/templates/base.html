@@ -17,8 +17,12 @@
 </head>
 <body>
 
+{% include "fragments/navbar.html" %}
+
+{% block jumbotron %}
+{% endblock %}
+
 <div id="content" class="container">
-    {% include "fragments/navbar.html" %}
     {% block content %}
         This should be overridden.
     {% endblock %}

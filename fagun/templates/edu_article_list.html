@@ -1,22 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>{{ title }}</h3>
-
-            <div>
-                <ul>
-                    {% for article in edu_articles %}
-                        <li>
-                            <a href="{% url "article" article.slug %}">{{ article.title }}</a>
-                            {% if article.published_at %} -
+    <h2>Greinar</h2>
+    {% for article in edu_articles %}
+        <div class="list-group">
+            <a href="{% url "article" article.slug %}" class="list-group-item">
+            <p class="small">{% if article.published_at %}
                                 {{ article.published_at }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                            {% endif %}</p>
+                <h4 class="list-group-item-heading">{{ article.title }}</h4>
+            <p class="list-group-item-text">Hér kemur texti úr greininni</p>
+            </a>
         </div>
-    </div>
+    {% endfor %}
 {% endblock %}
