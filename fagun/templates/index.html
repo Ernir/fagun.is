@@ -26,14 +26,14 @@
                 <div class="col-md-6">
                     <h2>Nýjustu fréttir</h2>
                     {% for story in news_stories %}
-                        <h4><a href="/">{{ story.title }}</a></h4>
+                        <h4><a href="{% url "news_story" story.slug %}">{{ story.title }}</a></h4>
                         <p>{{ story.body|truncatewords_html:50|safe }}</p>
                     {% endfor %}
                 </div>
                 <div class="col-md-6">
                     <h2>Nýjustu greinar</h2>
                     {% for article in edu_articles %}
-                        <h4><a href="">{{ article.title }}</a></h4>
+                        <h4><a href="{% url "article" article.slug %}">{{ article.title }}</a></h4>
                         <p>{{ article.body|truncatewords_html:50|safe }}</p>
                     {% endfor %}
                 </div>

@@ -4,12 +4,16 @@
     <h2>Greinar</h2>
     {% for article in edu_articles %}
         <div class="list-group">
-            <a href="{% url "article" article.slug %}" class="list-group-item">
-            <p class="small">{% if article.published_at %}
-                                {{ article.published_at }}
-                            {% endif %}</p>
+            <a href="{% url "article" article.slug %}"
+               class="list-group-item">
+                <p class="small">{% if article.published_at %}
+                    {{ article.published_at }}
+                {% endif %}</p>
                 <h4 class="list-group-item-heading">{{ article.title }}</h4>
-            <p class="list-group-item-text">Hér kemur texti úr greininni</p>
+
+                <p class="list-group-item-text">
+                    {{ article.body|truncatewords_html:20|safe }}
+                </p>
             </a>
         </div>
     {% endfor %}

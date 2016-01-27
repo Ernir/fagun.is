@@ -1,21 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>
-                {{ page.title }}
-            </h3>
-            <h4>
-                {% if page.published_at %}
-                    {{ page.published_at }}
-                {% endif %}
-            </h4>
+    <h3>
+        {{ page.title }}
+    </h3>
+    <h4>
+        {% if page.published_at %}
+            {{ page.published_at }}
+        {% endif %}
+    </h4>
 
-            <div>
-                {{ page.body|safe }}
-            </div>
-            {% include "fragments/tags.html" %}
-        </div>
+    <div>
+        {{ page.body|safe }}
     </div>
+    {% if show_tags|default_if_none:True %}
+        {% include "fragments/tags.html" %}
+    {% endif %}
+
 {% endblock %}

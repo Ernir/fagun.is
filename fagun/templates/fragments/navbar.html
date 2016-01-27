@@ -1,8 +1,7 @@
 {% load static %}
 
 <nav class="navbar navbar-default navbar-fagun">
-<div class="container">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"
@@ -28,7 +27,8 @@
                     <a href="{% url "news_list" %}">Fréttir</a>
                 </li>
                 <li>
-                    <a href="{% url "edu_article_list" %}">Greinar og Fræðsla</a>
+                    <a href="{% url "edu_article_list" %}">Greinar og
+                        Fræðsla</a>
                 </li>
                 {% for page in sub_pages %}
                     <li>
@@ -43,6 +43,4 @@
         </div>
         <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
-</div>
 </nav>

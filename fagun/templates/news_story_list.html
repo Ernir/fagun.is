@@ -4,12 +4,18 @@
     <h2>Fréttir</h2>
     {% for story in news_stories %}
         <div class="list-group">
-            <a href="{% url "news_story" story.slug %}" class="list-group-item">
-            <p class="small">{% if story.published_at %}
-                {{ story.published_at }}
-            {% endif %}</p>
+            <a href="{% url "news_story" story.slug %}"
+               class="list-group-item">
+                <p class="small">
+                    {% if story.published_at %}
+                        {{ story.published_at }}
+                    {% endif %}
+                </p>
                 <h4 class="list-group-item-heading">{{ story.title }}</h4>
-            <p class="list-group-item-text">Hér kemur texti úr fréttinni</p>
+
+                <p class="list-group-item-text">
+                    {{ story.body|truncatewords_html:20|safe }}
+                </p>
             </a>
         </div>
     {% endfor %}

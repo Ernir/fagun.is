@@ -45,7 +45,7 @@ class EducationalArticleView(BaseView):
     def get(self, request, **kwargs):
         if not "article_slug" in kwargs:
             return self.educational_article_list(request)
-        return self.educational_article_detail(request, kwargs["recipe_slug"])
+        return self.educational_article_detail(request, kwargs["article_slug"])
 
     def educational_article_list(self, request):
         articles = EducationalArticle.objects.filter(visible=True).all()
@@ -63,6 +63,7 @@ class SubPageView(BaseView):
     def get(self, request, **kwargs):
         page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
         self.params["page"] = page
+        self.params["show_tags"] = False
 
         return render(request, "sub_page.html", self.params)
 
@@ -74,8 +75,8 @@ class TagView(BaseView):
         stories = NewsStory.objects.filter(tags__slug=tag.slug).all()
         articles = EducationalArticle.objects.filter(tags__slug=tag.slug).all()
 
-        return render(request, "tag_list.html", {
-            "tag": tag,
-            "news_stories": stories,
-            "edu_articles": articles
-        })
+        self.params["tag"] = tag
+        self.params["news_stories"] = stories
+        self.params["edu_articles"] = articles
+
+        return render(request, "tag_list.html", self.params)
