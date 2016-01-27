@@ -1,20 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-from fagun.models import SidebarEntry, NewsStory, EducationalArticle, SubPage, Tag
+from fagun.models import SidebarEntry, NewsStory, EducationalArticle, \
+    SubPage, Tag
 
 
 class BaseView(View):
-    sub_pages = SubPage.objects.filter(visible=True).all()
-    params = {
-        "sub_pages": sub_pages
-    }
+    def __init__(self):
+        super().__init__()
+        sub_pages = SubPage.objects.filter(visible=True).all()
+        self.params = {
+            "sub_pages": sub_pages
+        }
 
 
 class IndexView(BaseView):
     def get(self, request):
         sidebar_entries = SidebarEntry.objects.filter(visible=True).all()
         news_stories = NewsStory.objects.filter(visible=True).all()[:2]
-        articles = EducationalArticle.objects.filter(visible=True).all()[:2]
+        articles = EducationalArticle.objects.filter(visible=True).all()[
+                   :2]
 
         self.params["sidebar_entries"] = sidebar_entries
         self.params["news_stories"] = news_stories
@@ -45,7 +49,8 @@ class EducationalArticleView(BaseView):
     def get(self, request, **kwargs):
         if not "article_slug" in kwargs:
             return self.educational_article_list(request)
-        return self.educational_article_detail(request, kwargs["article_slug"])
+        return self.educational_article_detail(request,
+                                               kwargs["article_slug"])
 
     def educational_article_list(self, request):
         articles = EducationalArticle.objects.filter(visible=True).all()
@@ -73,7 +78,8 @@ class TagView(BaseView):
         tag = get_object_or_404(Tag, slug=self.kwargs["tag_slug"])
 
         stories = NewsStory.objects.filter(tags__slug=tag.slug).all()
-        articles = EducationalArticle.objects.filter(tags__slug=tag.slug).all()
+        articles = EducationalArticle.objects.filter(
+            tags__slug=tag.slug).all()
 
         self.params["tag"] = tag
         self.params["news_stories"] = stories
