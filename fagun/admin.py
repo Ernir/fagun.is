@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.db import models
 from django import forms
 from adminsortable2.admin import SortableAdminMixin
-from fagun.models import NewsStory, SidebarEntry, EducationalArticle, SubPage, Tag
+from fagun.models import NewsStory, SidebarEntry, EducationalArticle, \
+    SubPage, Tag, Author
 
 
 class CkEditorAdmin(admin.ModelAdmin):
@@ -22,22 +23,24 @@ class SidebarEntryAdmin(SortableAdminMixin, CkEditorAdmin):
 
 
 class NewsArticleAdmin(CkEditorAdmin):
-    exclude = ("slug", )
+    readonly_fields = ("slug", )
 
 
 class RecipeAdmin(CkEditorAdmin):
-    exclude = ("slug", )
+    readonly_fields = ("slug", )
 
 
 class SubPageAdmin(CkEditorAdmin):
-    exclude = ("slug", )
+    readonly_fields = ("slug", )
 
 
 class TagAdmin(admin.ModelAdmin):
-    exclude = ("slug", )
+    readonly_fields = ("slug", )
+
 
 admin.site.register(NewsStory, NewsArticleAdmin)
 admin.site.register(SidebarEntry, SidebarEntryAdmin)
 admin.site.register(EducationalArticle, RecipeAdmin)
 admin.site.register(SubPage, SubPageAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Author)

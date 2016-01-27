@@ -50,10 +50,18 @@ class NewsStory(PublishableEntity):
         ordering = ("-published_at", )
 
 
+class Author(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class EducationalArticle(PublishableEntity):
     published_at = models.DateField()
     slug = models.SlugField()
     tags = models.ManyToManyField(Tag)
+    author = models.ForeignKey(Author, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
