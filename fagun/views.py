@@ -5,6 +5,10 @@ from fagun.models import SidebarEntry, NewsStory, EducationalArticle, \
 
 
 class BaseView(View):
+    """
+    An "abstract view" to manage the elements all of the site's
+    pages have in common
+    """
     def __init__(self):
         super().__init__()
         sub_pages = SubPage.objects.filter(visible=True).all()
@@ -14,6 +18,9 @@ class BaseView(View):
 
 
 class IndexView(BaseView):
+    """
+    A view for the site's index page
+    """
     def get(self, request):
         sidebar_entries = SidebarEntry.objects.filter(visible=True).all()
         news_stories = NewsStory.objects.filter(visible=True).all()[:2]
@@ -28,6 +35,9 @@ class IndexView(BaseView):
 
 
 class NewsStoryView(BaseView):
+    """
+    Views for news stories, both individual and a list
+    """
     def get(self, request, **kwargs):
         if not "news_slug" in kwargs:
             return self.news_list(request)
@@ -46,6 +56,9 @@ class NewsStoryView(BaseView):
 
 
 class EducationalArticleView(BaseView):
+    """
+    Views for articles, both individual and a list
+    """
     def get(self, request, **kwargs):
         if not "article_slug" in kwargs:
             return self.educational_article_list(request)
@@ -65,6 +78,9 @@ class EducationalArticleView(BaseView):
 
 
 class SubPageView(BaseView):
+    """
+    A view defining a sub page containing generic editable HTML content.
+    """
     def get(self, request, **kwargs):
         page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
         self.params["page"] = page
@@ -74,6 +90,9 @@ class SubPageView(BaseView):
 
 
 class TagView(BaseView):
+    """
+    A view to see all news and articles associated with a given tag.
+    """
     def get(self, request, **kwargs):
         tag = get_object_or_404(Tag, slug=self.kwargs["tag_slug"])
 

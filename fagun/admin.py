@@ -7,6 +7,10 @@ from fagun.models import NewsStory, SidebarEntry, EducationalArticle, \
 
 
 class CkEditorAdmin(admin.ModelAdmin):
+    """
+    A base admin class that overrides textviews with the JS-CKEditor
+    widget.
+    """
     formfield_overrides = {
         models.TextField: {
             'widget': forms.Textarea(attrs={'class': 'ckeditor'})
@@ -19,6 +23,10 @@ class CkEditorAdmin(admin.ModelAdmin):
 
 
 class SidebarEntryAdmin(SortableAdminMixin, CkEditorAdmin):
+    """
+    SortableAdminMixin makes (surprise surprise) the sidebars
+    sortable through the admin panel.
+    """
     pass
 
 

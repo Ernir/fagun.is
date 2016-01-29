@@ -3,6 +3,10 @@ from django.utils.text import slugify
 
 
 class PublishableEntity(models.Model):
+    """
+    An abstract class encapsulating behaviour common among sub-pages,
+    articles and news stories.
+    """
     title = models.CharField(max_length=200)
     body = models.TextField(blank=True)
     visible = models.BooleanField(default=True)
@@ -15,6 +19,9 @@ class PublishableEntity(models.Model):
 
 
 class SidebarEntry(PublishableEntity):
+    """
+    An entry to be displayed on the front page.
+    """
     priority = models.PositiveIntegerField(default=0)
 
     class Meta(object):
@@ -23,6 +30,10 @@ class SidebarEntry(PublishableEntity):
 
 
 class Tag(models.Model):
+    """
+    A "vertical" category for articles and stories, associated with
+    each via a N-N relationship.
+    """
     name = models.CharField(max_length=200)
     slug = models.SlugField()
 
@@ -38,6 +49,9 @@ class Tag(models.Model):
 
 
 class NewsStory(PublishableEntity):
+    """
+    One news story/article/blog, intended for one-time publishing
+    """
     published_at = models.DateField()
     slug = models.SlugField()
     tags = models.ManyToManyField(Tag)
@@ -51,6 +65,9 @@ class NewsStory(PublishableEntity):
 
 
 class Author(models.Model):
+    """
+    Each article is associated with an author, independent of Django users
+    """
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -58,6 +75,9 @@ class Author(models.Model):
 
 
 class EducationalArticle(PublishableEntity):
+    """
+    An instructional article, such as a recipe.
+    """
     published_at = models.DateField()
     slug = models.SlugField()
     tags = models.ManyToManyField(Tag)
@@ -72,6 +92,9 @@ class EducationalArticle(PublishableEntity):
 
 
 class SubPage(PublishableEntity):
+    """
+    Sub-pages containing arbitrary admin-defined HTML.
+    """
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
