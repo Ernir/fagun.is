@@ -2,21 +2,28 @@
 
 {% block content %}
     <h2>Fréttir</h2>
-    {% for story in news_stories %}
-        <div class="list-group">
-            <a href="{% url "news_story" story.slug %}"
-               class="list-group-item">
-                <p class="small">
-                    {% if story.published_at %}
-                        {{ story.published_at }}
-                    {% endif %}
-                </p>
-                <h4 class="list-group-item-heading">{{ story.title }}</h4>
+    <div class="row">
+        <div class="col-sm-8">
+            {% for story in news_stories %}
+                <div class="list-group">
+                    <a href="{% url "news_story" story.slug %}"
+                       class="list-group-item">
+                        <p class="small">
+                            {% if story.published_at %}
+                                {{ story.published_at }}
+                            {% endif %}
+                        </p>
+                        <h4 class="list-group-item-heading">{{ story.title }}</h4>
 
-                <p class="list-group-item-text">
-                    {{ story.body|truncatewords_html:20|safe }}
-                </p>
-            </a>
+                        <p class="list-group-item-text">
+                            {{ story.body|truncatewords_html:20|safe }}
+                        </p>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+        <div class="col-sm-4">
+            {% include "fragments/sidebar.html" %}
+        </div>
+    </div>
 {% endblock %}

@@ -16,19 +16,17 @@
         </div>
     </div>
 
-    {% for entry in sidebar_entries %}
-        <div class="box-item">
-            <h4>{{ entry.title }}</h4>
-
-            <p>{{ entry.body|safe }}</p>
-        </div>
-    {% endfor %}
+    <div class="box-item">
+        <h4>Skráning í félagið</h4>
+        <a href="/skraning-i-felagi/">Smelltu hér</a> til að fá upplýsingar um skráningu í Fágun.
+    </div>
 
     <div class="box-item">
-        <h4>Fylgdu okkur á Facebook</h4>
+        <h4>Fylgstu með á Facebook</h4>
 
         <div class="fb-like" data-href="https://www.facebook.com/fagunis"
-             data-layout="standard" data-action="like"
-             data-show-faces="true" data-share="true"></div>
+             data-layout="button_count" data-action="like"
+             data-show-faces="false" data-share="false"></div>
+
     </div>
 </div>

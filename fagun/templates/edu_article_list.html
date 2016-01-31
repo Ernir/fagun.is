@@ -2,19 +2,26 @@
 
 {% block content %}
     <h2>Greinar</h2>
-    {% for article in edu_articles %}
-        <div class="list-group">
-            <a href="{% url "article" article.slug %}"
-               class="list-group-item">
-                <p class="small">{% if article.published_at %}
-                    {{ article.published_at }}
-                {% endif %}</p>
-                <h4 class="list-group-item-heading">{{ article.title }}</h4>
+    <div class="row">
+        <div class="col-sm-8">
+        {% for article in edu_articles %}
+            <div class="list-group">
+                <a href="{% url "article" article.slug %}"
+                   class="list-group-item">
+                    <p class="small">{% if article.published_at %}
+                        {{ article.published_at }}
+                    {% endif %}</p>
+                    <h4 class="list-group-item-heading">{{ article.title }}</h4>
 
-                <p class="list-group-item-text">
-                    {{ article.body|truncatewords_html:20|safe }}
-                </p>
-            </a>
-        </div>
-    {% endfor %}
+                    <p class="list-group-item-text">
+                        {{ article.body|truncatewords_html:20|safe }}
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-4">
+        {% include "fragments/sidebar.html" %}
+    </div>
+    </div>
 {% endblock %}
