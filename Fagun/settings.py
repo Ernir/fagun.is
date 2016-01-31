@@ -43,7 +43,7 @@ WSGI_APPLICATION = 'Fagun.wsgi.application'
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'is-is'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
