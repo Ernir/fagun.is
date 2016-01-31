@@ -26,5 +26,6 @@ function registerToMailingList() {
 }
 
 function displaySuccess() {
-    $("#mail-wrapper").html("<p>Skráning á póstlistann tókst!</p>")
+    $("#mail-wrapper").html("<p>Takk fyrir að skrá þig á póstlista Fágunar! " +
+        "Þú færð tölvupóst innan skamms til að staðfesta skráningu.</p>")
 }
