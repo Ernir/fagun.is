@@ -10,5 +10,6 @@ urlpatterns = [
     url(r"^greinar/$", views.EducationalArticleView.as_view(), name="edu_article_list"),
     url(r"^greinar/(?P<article_slug>.+)/$", views.EducationalArticleView.as_view(), name="article"),
     url(r"^flokkar/(?P<tag_slug>.+)/$", views.TagView.as_view(), name="tag"),
-    url(r"^(?P<page_slug>.+)/$", views.SubPageView.as_view(), name="sub_page")
+    url(r"^internals/mail-register/$", views.MailView.as_view(), name="mail"),
+    url(r"^(?P<page_slug>.+)/$", views.SubPageView.as_view(), name="sub_page"),
 ]

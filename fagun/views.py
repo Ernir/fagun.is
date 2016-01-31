@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
+from fagun.forms import MailForm
 from fagun.models import SidebarEntry, NewsStory, EducationalArticle, \
     SubPage, Tag
 
@@ -9,6 +11,7 @@ class BaseView(View):
     An "abstract view" to manage the elements all of the site's
     pages have in common
     """
+
     def __init__(self):
         super().__init__()
         sub_pages = SubPage.objects.filter(visible=True).all()
@@ -21,15 +24,18 @@ class IndexView(BaseView):
     """
     A view for the site's index page
     """
+
     def get(self, request):
         sidebar_entries = SidebarEntry.objects.filter(visible=True).all()
         news_stories = NewsStory.objects.filter(visible=True).all()[:2]
         articles = EducationalArticle.objects.filter(visible=True).all()[
                    :2]
+        mail_form = MailForm()
 
         self.params["sidebar_entries"] = sidebar_entries
         self.params["news_stories"] = news_stories
         self.params["edu_articles"] = articles
+        self.params["mail_form"] = mail_form
 
         return render(request, "index.html", self.params)
 
@@ -38,6 +44,7 @@ class NewsStoryView(BaseView):
     """
     Views for news stories, both individual and a list
     """
+
     def get(self, request, **kwargs):
         if not "news_slug" in kwargs:
             return self.news_list(request)
@@ -59,6 +66,7 @@ class EducationalArticleView(BaseView):
     """
     Views for articles, both individual and a list
     """
+
     def get(self, request, **kwargs):
         if not "article_slug" in kwargs:
             return self.educational_article_list(request)
@@ -81,6 +89,7 @@ class SubPageView(BaseView):
     """
     A view defining a sub page containing generic editable HTML content.
     """
+
     def get(self, request, **kwargs):
         page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
         self.params["page"] = page
@@ -93,6 +102,7 @@ class TagView(BaseView):
     """
     A view to see all news and articles associated with a given tag.
     """
+
     def get(self, request, **kwargs):
         tag = get_object_or_404(Tag, slug=self.kwargs["tag_slug"])
 
@@ -105,3 +115,14 @@ class TagView(BaseView):
         self.params["edu_articles"] = articles
 
         return render(request, "tag_list.html", self.params)
+
+
+class MailView(View):
+    """
+    A view handling the mailing list registration form on the index page.
+    """
+
+    def post(self, request):
+        ## ToDo: Actually register that someone
+
+        return JsonResponse({"response": "not implemented, nothing happened"})
