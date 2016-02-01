@@ -27,7 +27,7 @@ class SidebarEntryAdmin(SortableAdminMixin, CkEditorAdmin):
     SortableAdminMixin makes (surprise surprise) the sidebars
     sortable through the admin panel.
     """
-    exclude = ["slug", ]
+    pass
 
 
 class NewsArticleAdmin(CkEditorAdmin):
