@@ -9,11 +9,23 @@ class PublishableEntity(models.Model):
     articles and news stories.
     """
     title = models.CharField(max_length=200, unique=True)
+    sub_title = models.CharField(
+        max_length=200,
+        blank=True,
+        default="",
+        help_text="Má vera tómt"
+    )
     body = models.TextField(blank=True)
     visible = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=50)
+    slug = models.SlugField(
+        max_length=50,
+        help_text="Búið til sjálfkrafa við fyrstu vistun."
+    )
 
     def make_unique_slug(self):
+        if self.slug:
+            # Cool URLs don't change
+            return self.slug
         # ToDo: guarantee uniqueness among all objects
         return slugify(self.title)
 
@@ -24,15 +36,14 @@ class PublishableEntity(models.Model):
         abstract = True
 
 
-class SidebarEntry(PublishableEntity):
+class SidebarEntry(models.Model):
     """
     An entry to be displayed on the front page.
     """
+    title = models.CharField(max_length=200, unique=True)
+    body = models.TextField(blank=True)
+    visible = models.BooleanField(default=True)
     priority = models.PositiveIntegerField(default=0)
-
-    def save(self, *args, **kwargs):
-        self.slug = self.make_unique_slug()
-        super(SidebarEntry, self).save(*args, **kwargs)
 
     class Meta(object):
         verbose_name_plural = "sidebar entries"

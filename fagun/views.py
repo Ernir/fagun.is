@@ -16,7 +16,9 @@ class BaseView(View):
         super().__init__()
         sub_pages = SubPage.objects.filter(visible=True).all()
         self.params = {
-            "sub_pages": sub_pages
+            "sub_pages": sub_pages,
+            "title": "Fágun",  # Default value
+            "sub_title": ""
         }
 
 
@@ -36,6 +38,7 @@ class IndexView(BaseView):
         self.params["news_stories"] = news_stories
         self.params["edu_articles"] = articles
         self.params["mail_form"] = mail_form
+        self.params["sub_title"] = "Félag áhugafólks um gerjun"
 
         return render(request, "index.html", self.params)
 
@@ -53,11 +56,14 @@ class NewsStoryView(BaseView):
     def news_list(self, request):
         news_stories = NewsStory.objects.filter(visible=True).all()
         self.params["news_stories"] = news_stories
+        self.params["title"] = "Fréttir"
         return render(request, "news_story_list.html", self.params)
 
     def news_detail(self, request, slug):
         article = get_object_or_404(NewsStory, slug=slug)
         self.params["page"] = article
+        self.params["title"] = article.title
+        self.params["sub_title"] = article.sub_title
 
         return render(request, "sub_page.html", self.params)
 
@@ -76,11 +82,14 @@ class EducationalArticleView(BaseView):
     def educational_article_list(self, request):
         articles = EducationalArticle.objects.filter(visible=True).all()
         self.params["edu_articles"] = articles
+        self.params["title"] = "Greinar"
         return render(request, "edu_article_list.html", self.params)
 
     def educational_article_detail(self, request, slug):
         article = get_object_or_404(EducationalArticle, slug=slug)
         self.params["page"] = article
+        self.params["title"] = article.title
+        self.params["sub_title"] = article.sub_title
 
         return render(request, "sub_page.html", self.params)
 
@@ -94,6 +103,8 @@ class SubPageView(BaseView):
         page = get_object_or_404(SubPage, slug=self.kwargs["page_slug"])
         self.params["page"] = page
         self.params["show_tags"] = False
+        self.params["title"] = page.title
+        self.params["sub_title"] = page.sub_title
 
         return render(request, "sub_page.html", self.params)
 
@@ -111,6 +122,9 @@ class TagView(BaseView):
             tags__slug=tag.slug).all()
 
         self.params["tag"] = tag
+        self.params["title"] = tag.name
+        self.params["sub_title"] = \
+            'Allar fréttir og greinar sem tengjast "{}"'.format(tag.name)
         self.params["news_stories"] = stories
         self.params["edu_articles"] = articles
 
