@@ -45,6 +45,9 @@ class SidebarEntry(models.Model):
     visible = models.BooleanField(default=True)
     priority = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return self.title
+
     class Meta(object):
         verbose_name_plural = "sidebar entries"
         ordering = ("priority", )
