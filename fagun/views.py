@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from fagun.forms import MailForm
+from fagun.mail_chimp import MailChimp
 from fagun.models import SidebarEntry, NewsStory, EducationalArticle, \
     SubPage, Tag
 
@@ -138,5 +139,18 @@ class MailView(View):
 
     def post(self, request):
         ## ToDo: Actually register that someone
+        mail_helper = MailChimp()
+        email_address = request.POST["user_email"]
 
-        return JsonResponse({"response": "not implemented, nothing happened"})
+        code = mail_helper.add_member(email_address)
+        if code == 200:
+            response = "<p>Takk fyrir að skrá þig á póstlista Fágunar!" \
+                       "Þú munt fá næsta fréttabréf þegar það kemur út." \
+                       "</p>"
+        else:
+            response = "<p>Villa kom upp við sjálfvirka skráningu. " \
+                       "Vinsamlegast reyndu aftur síðar eða hafðu " \
+                       "samband við fagun@fagun.is til að biðja um " \
+                       "handvirka skráningu.</p>"
+
+        return JsonResponse({"response": response})

@@ -14,6 +14,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG_MODE"))
 
+MAILCHIMP_API_KEY = os.getenv("FAGUN_MAILCHIMP_API_KEY", "")
+MAILCHIMP_ID = os.getenv("FAGUN_MAILCHIMP_ID", "")
+MAILCHIMP_SERVER = os.getenv("FAGUN_MAILCHIMP_SERVER", "")
+
 # Application definition
 
 INSTALLED_APPS = (

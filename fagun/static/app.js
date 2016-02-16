@@ -1,4 +1,3 @@
-
 // Override for normal form behaviour
 $('#mail-form').on('submit', function (event) {
     event.preventDefault();
@@ -13,19 +12,17 @@ function registerToMailingList() {
         data: $("#mail-form").serialize(),
 
         success: function (json) {
-            displaySuccess();
-            console.log(json);
+            displaySuccess(json);
         },
 
         error: function (xhr, errmsg, err) {
             if (errmsg !== "abort") {
-                alert("Something went very wrong!");
+                // ToDo: Handle this type of error
             }
         }
     });
 }
 
-function displaySuccess() {
-    $("#mail-wrapper").html("<p>Takk fyrir að skrá þig á póstlista Fágunar! " +
-        "Þú færð tölvupóst innan skamms til að staðfesta skráningu.</p>")
+function displaySuccess(json) {
+    $("#mail-wrapper").html(json.response)
 }
